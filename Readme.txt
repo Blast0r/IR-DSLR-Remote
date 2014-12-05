@@ -15,3 +15,6 @@ List of material:
  * IC-Holder
  * Base Resistor 150 Ohms
  * LED resistor 1kOhms (or even higher, the LED was very bright)
+ 
+Picture:
+![Picture of Remote](IR Remote.jpg?raw=true "Optional Title")
