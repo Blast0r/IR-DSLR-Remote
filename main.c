@@ -333,21 +333,26 @@ void triggerrelease( void )
 	}
 
 
-#elif defined SONY
+#elif defined SONY 
+/*
+Sony SIRC Protocol, 20bit = 7 cmd + 13 address
+sending this 5 times
+
+*/
 	uint8_t i,j=0,k;
 	uint8_t cmd = 0;
 	uint16_t mask = 1;
-	uint16_t address = 0x1E3A;
+	uint16_t address = 0x1E3A; // 0001 1110 0011 1010
 
 
 	if((PINB & 1<<PB3) == 0)
-		cmd = 0x2D;
+		cmd = 0x2D; //0010 1101
 	else if((PINB & 1<<PB4) == 0)
-		cmd = 0x37;
+		cmd = 0x37; //0011 0111
 
 	for(k = 0; k<5; k++){
 		mask = 1;
-		/* Send Start-Burst */
+		/* Send Start-Burst, 2,4ms with standard pause */ 
 		for(i = 0; i < 96; i++){
 			PULSE_40k();
 		}
@@ -356,17 +361,17 @@ void triggerrelease( void )
 		/* Send CMD; LSB first */
 		while(j++ <7){
 			if(cmd & mask){
-				for(i = 0; i < 48; i++){
+				for(i = 0; i < 48; i++){ //logical 1 burst 1,2ms
 					PULSE_40k();
 				}
 			}
 			else{
-				for(i = 0; i < 24; i++){
+				for(i = 0; i < 24; i++){ // logical 0 burst 0,6ms
 					PULSE_40k();
 				}
 				
 			}
-			_delay_us(640);
+			_delay_us(640); //pause (eigentlich nur 600us...)
 			mask <<= 1;
 		}
 		j=0;
@@ -374,12 +379,12 @@ void triggerrelease( void )
 		/* Send Adress; LSB first */
 		while(j++<13){
 			if(address & mask){
-				for(i = 0; i < 48; i++){
+				for(i = 0; i < 48; i++){//logical 1 burst 1,2ms
 					PULSE_40k();
 				}
 			}
 			else{
-				for(i = 0; i < 24; i++){
+				for(i = 0; i < 24; i++){// logical 0 burst 0,6ms
 					PULSE_40k();
 				}
 			
