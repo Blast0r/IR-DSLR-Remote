@@ -146,9 +146,7 @@ ISR(PCINT0_vect)
 			if(lapsetime > 0 )	TIMSK = (1<<TOIE0); 	// enable Timer Counter0 Overflow only if there is a time lapse set, otherwise it stays disabled.
 		}
 		
-		PORTB |= (1<<statusled); // light LED while sending
 		triggerrelease();		// Trigger the camera release
-		PORTB &= ~(1<<statusled);
 	}
 	else if (0 == (ppp & (1<<adjusttimelapse)))
 	{
@@ -231,7 +229,9 @@ void fastflash( uint8_t counter )
 void triggerrelease( void )
 {
 	cli();	// disable further interrupts, because the codes are time critical.
-
+	
+	PORTB |= (1<<statusled); // light LED while sending
+		
 	#ifdef CANON
 	uint8_t i;
 	/* Key pressed for undelayed Shot ? */
@@ -519,6 +519,6 @@ void triggerrelease( void )
 	}
 			
 #endif
-
+	PORTB &= ~(1<<statusled); //disable status led if done with sending
 	sei();	// reenable interrupts
 }
