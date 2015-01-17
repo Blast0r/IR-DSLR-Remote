@@ -55,9 +55,9 @@ Changed by Blast0r in November 2014, Licensed under CC BY-NC-SA 2.5
  */
 //#define CANON	// please check code !
 //#define PENTAX
-#define NIKON
+//#define NIKON
 //#define OLYMPUS
-//#define SONY	// please check code !
+#define SONY	// please check code !
 //#define MINOLTA	// please check code !
 //#define FUJI
 
@@ -345,10 +345,10 @@ sending this 5 times
 	uint16_t address = 0x1E3A; // 0001 1110 0011 1010
 
 
-	if((PINB & 1<<PB3) == 0)
-		cmd = 0x2D; //0010 1101
-	else if((PINB & 1<<PB4) == 0)
-		cmd = 0x37; //0011 0111
+	//if((PINB & 1<<PB3) == 0) // time button
+		cmd = 0x2D; //0010 1101 ohne Zeitverzögerung
+	//else if((PINB & 1<<PB4) == 0) //start button
+		//cmd = 0x37; //0011 0111 mit 2 sekunden Zeitverzögerung
 
 	for(k = 0; k<5; k++){
 		mask = 1;
