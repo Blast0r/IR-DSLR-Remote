@@ -346,9 +346,9 @@ sending this 5 times
 
 
 	if((PINB & 1<<PB3) == 0)
-		cmd = 0x2D; //0010 1101
+		cmd = 0x2D; //0010 1101 ohne Zeitverzögerung
 	else if((PINB & 1<<PB4) == 0)
-		cmd = 0x37; //0011 0111
+		cmd = 0x37; //0011 0111 mit 2 sekunden Zeitverzögerung
 
 	for(k = 0; k<5; k++){
 		mask = 1;
