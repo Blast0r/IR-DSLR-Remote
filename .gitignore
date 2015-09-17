@@ -11,7 +11,7 @@ TV-B-Gone/*
 *.pch
 
 # Libraries
-*.lib
+#*.lib
 *.a
 *.la
 *.lo
